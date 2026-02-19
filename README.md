@@ -1,0 +1,1 @@
+CYB OSINT Scraper — simple, defensive web crawler to discover public-facing pages, titles, server headers, and visible contact addresses on a domain. Built for educational/authorized asset discovery only. Run responsibly and respect robots.txt.
