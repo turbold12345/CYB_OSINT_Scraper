@@ -1,0 +1,12 @@
+import requests
+from urllib.parse import urljoin
+from urllib.robotparser import RobotFileParser
+
+def allowed_by_robots(base_url, user_agent="CYB-OSINT-Scraper"):
+    try:
+        rp = RobotFileParser()
+        rp.set_url(urljoin(base_url, "/robots.txt"))
+        rp.read()
+        return rp
+    except:
+        return None

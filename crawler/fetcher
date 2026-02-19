@@ -1,0 +1,15 @@
+import requests
+from urllib.parse import urljoin, urlparse
+import time
+
+DEFAULT_HEADERS = {
+    "User-Agent": "CYB-OSINT-Scraper/1.0 (+https://github.com/yourusername)"
+}
+
+def fetch_url(url, timeout=5, headers=None):
+    headers = headers or DEFAULT_HEADERS
+    try:
+        resp = requests.get(url, timeout=timeout, headers=headers, allow_redirects=True)
+        return resp.status_code, resp.text, resp.headers
+    except requests.RequestException as e:
+        return None, None, None

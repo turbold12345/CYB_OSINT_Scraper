@@ -1,0 +1,22 @@
+import argparse
+from crawler.core import Crawler
+from crawler.exporter import save_json, save_csv
+
+def get_args():
+    p = argparse.ArgumentParser(description="CYB OSINT Scraper (defensive use only)")
+    p.add_argument("-u", "--url", required=True, help="Starting URL (e.g. https://example.com)")
+    p.add_argument("-d", "--depth", type=int, default=2, help="Crawl depth")
+    p.add_argument("-t", "--threads", type=int, default=8, help="Worker threads")
+    p.add_argument("--json", help="JSON output file")
+    p.add_argument("--csv", help="CSV output file")
+    return p.parse_args()
+
+if __name__ == "__main__":
+    args = get_args()
+    crawler = Crawler(domain=args.url, max_depth=args.depth, max_workers=args.threads)
+    results = crawler.crawl()
+    if args.json:
+        save_json(results, args.json)
+    if args.csv:
+        save_csv(results, args.csv)
+    print(f"Done. Found {len(results)} pages.")
